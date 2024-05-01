@@ -15,6 +15,7 @@ data AuthorizationRequest = AuthorizationRequest
   , authorizationRequestAction :: !Action
   , authorizationRequestResource :: !Text
   , authorizationRequestHost :: !Text
+  , authorizationRequestToken :: !(Maybe Text)
   } deriving (Eq, Show)
 
 
@@ -24,15 +25,23 @@ instance FromJSON AuthorizationRequest where
     a <- obj .: "action"
     r <- obj .: "resource"
     h <- obj .: "host"
-    return $ AuthorizationRequest u a r h
+    t <- obj .:? "token"
+    return $ AuthorizationRequest u a r h t
   parseJSON _ = fail "Invalid JSON"
 
 instance ToJSON AuthorizationRequest where
-  toJSON (AuthorizationRequest u a r h) = object
+  toJSON (AuthorizationRequest u a r h Nothing) = object
     [ "user" .= u
     , "action" .= a
     , "resource" .= r
     , "host" .= h
+    ]
+  toJSON (AuthorizationRequest u a r h (Just t)) = object
+    [ "user" .= u
+    , "action" .= a
+    , "resource" .= r
+    , "host" .= h
+    , "token" .= t
     ]
 
 
