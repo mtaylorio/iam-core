@@ -28,6 +28,7 @@ dependencies:
 - ed25519
 - email-validate
 - entropy
+- http-types
 - mtl
 - network
 - network-ip

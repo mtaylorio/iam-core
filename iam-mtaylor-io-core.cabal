@@ -26,6 +26,7 @@ source-repository head
 library
   exposed-modules:
       IAM.API
+      IAM.Authentication
       IAM.Authorization
       IAM.Config
       IAM.Error
@@ -62,6 +63,7 @@ library
     , ed25519
     , email-validate
     , entropy
+    , http-types
     , mtl
     , network
     , network-ip
@@ -90,6 +92,7 @@ test-suite iam-mtaylor-io-core-test
     , ed25519
     , email-validate
     , entropy
+    , http-types
     , iam-mtaylor-io-core
     , mtl
     , network
