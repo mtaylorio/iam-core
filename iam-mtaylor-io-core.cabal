@@ -1,0 +1,99 @@
+cabal-version: 2.2
+
+-- This file has been generated from package.yaml by hpack version 0.36.0.
+--
+-- see: https://github.com/sol/hpack
+
+name:           iam-mtaylor-io-core
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/mtaylor91/iam-mtaylor-io-core#readme>
+homepage:       https://github.com/mtaylor91/iam-mtaylor-io-core#readme
+bug-reports:    https://github.com/mtaylor91/iam-mtaylor-io-core/issues
+author:         Mike Taylor
+maintainer:     mike.charles.taylor@gmail.com
+copyright:      Copyright (c) 2024
+license:        BSD-3-Clause
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/mtaylor91/iam-mtaylor-io-core
+
+library
+  exposed-modules:
+      IAM.API
+      IAM.Authorization
+      IAM.Error
+      IAM.Group
+      IAM.GroupIdentifier
+      IAM.GroupPolicy
+      IAM.Identifier
+      IAM.Ip
+      IAM.ListResponse
+      IAM.Login
+      IAM.Membership
+      IAM.Policy
+      IAM.PublicKey
+      IAM.Session
+      IAM.Sort
+      IAM.User
+      IAM.UserIdentifier
+      IAM.UserPolicy
+      IAM.UserPublicKey
+  other-modules:
+      Paths_iam_mtaylor_io_core
+  autogen-modules:
+      Paths_iam_mtaylor_io_core
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , base64
+    , bytestring
+    , data-textual
+    , ed25519
+    , email-validate
+    , entropy
+    , mtl
+    , network
+    , network-ip
+    , servant-server
+    , text
+    , time
+    , uuid
+  default-language: Haskell2010
+
+test-suite iam-mtaylor-io-core-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_iam_mtaylor_io_core
+  autogen-modules:
+      Paths_iam_mtaylor_io_core
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , base64
+    , bytestring
+    , data-textual
+    , ed25519
+    , email-validate
+    , entropy
+    , iam-mtaylor-io-core
+    , mtl
+    , network
+    , network-ip
+    , servant-server
+    , text
+    , time
+    , uuid
+  default-language: Haskell2010
