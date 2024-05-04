@@ -49,13 +49,7 @@ instance FromJSON UserIdentifier where
     name <- obj .:? "name"
     email <- obj .:? "email"
     return $ UserIdentifier uuid name email
-  parseJSON (String s) = case readMaybe $ unpack s of
-    Just uuid ->
-      return $ UserIdentifier (Just $ UserUUID uuid) Nothing Nothing
-    Nothing ->
-      if isValid $ encodeUtf8 s
-      then return $ UserIdentifier Nothing Nothing (Just s)
-      else return $ UserIdentifier Nothing (Just s) Nothing
+  parseJSON (String s) = return $ userIdentifierFromText s
   parseJSON _ = fail "Invalid JSON"
 
 instance ToJSON UserIdentifier where
@@ -64,3 +58,20 @@ instance ToJSON UserIdentifier where
     , "name" .= mName
     , "email" .= mEmail
     ]
+
+
+userIdentifierToText :: UserIdentifier -> Text
+userIdentifierToText (UserIdentifier (Just (UserUUID uuid)) _ _) = toText uuid
+userIdentifierToText (UserIdentifier _ (Just name) _) = name
+userIdentifierToText (UserIdentifier _ _ (Just email)) = email
+userIdentifierToText (UserIdentifier Nothing Nothing Nothing) = ""
+
+
+userIdentifierFromText :: Text -> UserIdentifier
+userIdentifierFromText s = case readMaybe $ unpack s of
+  Just uuid ->
+    UserIdentifier (Just $ UserUUID uuid) Nothing Nothing
+  Nothing ->
+    if isValid $ encodeUtf8 s
+    then UserIdentifier Nothing Nothing (Just s)
+    else UserIdentifier Nothing (Just s) Nothing
