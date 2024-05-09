@@ -1,3 +1,4 @@
+{-# LANGUAGE LambdaCase #-}
 {-# LANGUAGE FlexibleContexts #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE ScopedTypeVariables #-}
@@ -43,6 +44,19 @@ instance ToJSON Error where
     , "message" .= e
     ]
 
+instance FromJSON Error where
+  parseJSON = withObject "Error" $ \o -> do
+    kind :: Text <- o .: "error"
+    case kind of
+      "Authentication failed" -> AuthenticationFailed <$> o .: "message"
+      "Not Authorized" -> return NotAuthorized
+      "Already exists" -> return AlreadyExists
+      "Not found" -> NotFound <$> o .: "identifier"
+      "Internal error" -> return $ InternalError ""
+      "Not implemented" -> return NotImplemented
+      "Validation error" -> ValidationError <$> o .: "message"
+      _ -> fail "Invalid error kind"
+
 
 data AuthenticationError
   = AuthenticationRequired
@@ -60,6 +74,16 @@ instance ToJSON AuthenticationError where
   toJSON SessionRequired = String "Session authentication required"
   toJSON SessionNotFound = String "Session not found"
   toJSON UserNotFound = String "User not found"
+
+instance FromJSON AuthenticationError where
+  parseJSON = withText "AuthenticationError" $ \case
+    "Authentication required" -> return AuthenticationRequired
+    "Invalid Host" -> return InvalidHost
+    "Invalid Signature" -> return InvalidSignature
+    "Session authentication required" -> return SessionRequired
+    "Session not found" -> return SessionNotFound
+    "User not found" -> return UserNotFound
+    _ -> fail "Invalid AuthenticationError"
 
 
 errorHandler :: (MonadIO m, MonadError ServerError m) => Error -> m a
