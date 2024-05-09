@@ -149,7 +149,8 @@ type GroupPolicyAPI
     )
 
 type MembershipAPI
-  = ( PostCreated '[JSON] Membership
+  = ( GetNoContent
+  :<|> PostCreated '[JSON] Membership
   :<|> Delete '[JSON] Membership
     )
 
