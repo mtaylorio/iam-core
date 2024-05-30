@@ -64,6 +64,7 @@ data AuthenticationError
   | InvalidSignature
   | SessionRequired
   | SessionNotFound
+  | SessionExpired
   | UserNotFound
   deriving (Show, Eq)
 
@@ -73,6 +74,7 @@ instance ToJSON AuthenticationError where
   toJSON InvalidSignature = String "Invalid Signature"
   toJSON SessionRequired = String "Session authentication required"
   toJSON SessionNotFound = String "Session not found"
+  toJSON SessionExpired = String "Session expired"
   toJSON UserNotFound = String "User not found"
 
 instance FromJSON AuthenticationError where
