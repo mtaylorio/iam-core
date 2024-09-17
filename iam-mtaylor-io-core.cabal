@@ -42,6 +42,7 @@ library
       IAM.PublicKey
       IAM.Session
       IAM.Sort
+      IAM.Status
       IAM.User
       IAM.UserIdentifier
       IAM.UserPolicy

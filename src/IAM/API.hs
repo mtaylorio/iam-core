@@ -37,13 +37,14 @@ import IAM.Policy
 import IAM.PublicKey
 import IAM.Session
 import IAM.Sort
+import IAM.Status
 import IAM.User
 import IAM.UserIdentifier
 import IAM.UserPolicy
 import IAM.UserPublicKey
 
 
-type API = SignedAPI
+type API = SignedAPI :<|> StatusAPI
 
 
 type SignedAPI = AuthProtect "signature-auth" :> IAMAPI
@@ -170,6 +171,9 @@ type PolicyAPI
 
 type AuthorizeAPI
   = ReqBody '[JSON] AuthorizationRequest :> Post '[JSON] AuthorizationResponse
+
+
+type StatusAPI = "status" :> Get '[JSON] Status
 
 
 api :: Proxy API
