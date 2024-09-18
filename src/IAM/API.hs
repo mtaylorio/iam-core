@@ -174,8 +174,11 @@ type PolicyAPI
 
 
 type SessionsAPI
-  = ( ListAPI Session
-  :<|> Capture "session" SessionId :> SessionAPI
+  = ( QueryParam "search" Text
+    :> QueryParam "sort" SortSessionsBy
+    :> QueryParam "order" SortOrder
+    :> ListAPI Session
+  :<|> ( Capture "session" SessionId :> SessionAPI )
     )
 
 

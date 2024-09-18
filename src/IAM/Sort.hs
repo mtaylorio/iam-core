@@ -95,3 +95,33 @@ parseSortPoliciesBy :: Text -> Maybe SortPoliciesBy
 parseSortPoliciesBy "id" = Just SortPoliciesById
 parseSortPoliciesBy "name" = Just SortPoliciesByName
 parseSortPoliciesBy _ = Nothing
+
+
+data SortSessionsBy
+  = SortSessionsById
+  | SortSessionsByUserId
+  | SortSessionsByAddress
+  | SortSessionsByExpiration
+
+
+instance FromHttpApiData SortSessionsBy where
+  parseUrlPiece = maybe (Left "Invalid sort") Right . parseSortSessionsBy
+
+
+instance ToHttpApiData SortSessionsBy where
+  toUrlPiece = sortSessionByText
+
+
+sortSessionByText :: SortSessionsBy -> Text
+sortSessionByText SortSessionsById = "id"
+sortSessionByText SortSessionsByUserId = "user"
+sortSessionByText SortSessionsByAddress = "address"
+sortSessionByText SortSessionsByExpiration = "expiration"
+
+
+parseSortSessionsBy :: Text -> Maybe SortSessionsBy
+parseSortSessionsBy "id" = Just SortSessionsById
+parseSortSessionsBy "user" = Just SortSessionsByUserId
+parseSortSessionsBy "address" = Just SortSessionsByAddress
+parseSortSessionsBy "expiration" = Just SortSessionsByExpiration
+parseSortSessionsBy _ = Nothing
