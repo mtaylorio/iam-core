@@ -25,6 +25,9 @@ instance Read IpAddr where
     Just addr -> [(IpAddr addr, "")]
     Nothing -> []
 
+instance Ord IpAddr where
+  compare (IpAddr a) (IpAddr b) = compare (netHost a) (netHost b)
+
 
 fromSockAddr :: SockAddr -> Maybe IpAddr
 fromSockAddr (SockAddrInet _ addr) =
