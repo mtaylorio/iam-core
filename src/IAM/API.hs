@@ -17,6 +17,8 @@ module IAM.API
   , MembershipAPI
   , PolicyAPI
   , PoliciesAPI
+  , SessionAPI
+  , SessionsAPI
   , AuthorizeAPI
   , SignedAPI
   , api
