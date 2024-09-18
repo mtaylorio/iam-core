@@ -65,6 +65,7 @@ type IAMAPI
   :<|> ("users" :> UsersAPI)
   :<|> ( "groups" :> GroupsAPI )
   :<|> ( "policies" :> PoliciesAPI )
+  :<|> ( "sessions" :> SessionsAPI )
   :<|> ( "authorize" :> AuthorizeAPI )
   :<|> ( "login" :> LoginHandlerAPI )
     )
@@ -167,6 +168,18 @@ type PoliciesAPI
 type PolicyAPI
   = ( Get '[JSON] Policy
   :<|> Delete '[JSON] Policy
+    )
+
+
+type SessionsAPI
+  = ( ListAPI Session
+  :<|> Capture "session" SessionId :> SessionAPI
+    )
+
+
+type SessionAPI
+  = ( Get '[JSON] Session
+  :<|> Delete '[JSON] Session
     )
 
 type AuthorizeAPI
