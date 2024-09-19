@@ -56,10 +56,6 @@ instance FromJSON Session where
     return $ Session sid addr user expiration
 
 
-refreshSession :: Session -> Session
-refreshSession s = s { sessionExpiration = addUTCTime 3600 $ sessionExpiration s }
-
-
 toCreateSession :: Session -> Text -> CreateSession
 toCreateSession (Session sid addr uid expiration) token =
   CreateSession sid addr uid token expiration
