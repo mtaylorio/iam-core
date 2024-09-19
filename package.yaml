@@ -1,6 +1,6 @@
-name:                iam-mtaylor-io-core
+name:                mtaylor-io-iam-core
 version:             0.1.0.0
-github:              "mtaylor91/iam-mtaylor-io-core"
+github:              "mtaylorio/iam-core"
 license:             BSD-3-Clause
 author:              "Mike Taylor"
 maintainer:          "mike.charles.taylor@gmail.com"
