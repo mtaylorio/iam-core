@@ -72,7 +72,7 @@ configMaybeSessionToken = lookupNamespaceEnvConfig "SESSION_TOKEN"
 
 configURL :: IO String
 configURL = do
-  maybeValue <- lookupNamespaceEnvConfig "URL"
+  maybeValue <- lookupNamespaceEnvConfig "IAM_URL"
   case maybeValue of
     Nothing -> return "https://iam.mtaylor.io"
     Just value -> return value
