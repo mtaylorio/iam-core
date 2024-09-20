@@ -22,6 +22,7 @@ import System.Environment
 import qualified Data.Text as T
 
 import IAM.Session
+import IAM.UserIdentifier
 import IAM.Util
 
 
@@ -33,19 +34,28 @@ headerPrefix :: String
 headerPrefix = "X-MTaylor-IO"
 
 
-configUserIdentifier :: IO String
+configUserIdentifier :: IO UserIdentifier
 configUserIdentifier = do
   maybeUUID <- lookupNamespaceEnvConfig "UUID"
   maybeUsername <- lookupNamespaceEnvConfig "USERNAME"
   maybeEmail <- lookupNamespaceEnvConfig "EMAIL"
   case (maybeUUID, maybeUsername, maybeEmail) of
-    (Just uuid, _, _) -> return uuid
-    (_, Just username, _) -> return username
-    (_, _, Just email) -> return email
-    _ -> throw $ userError $ "One of "
+    (Nothing, Nothing, Nothing) ->
+      throw $ userError $ "One of "
       ++ envPrefix ++ "_UUID, "
       ++ envPrefix ++ "_USERNAME, or "
       ++ envPrefix ++ "_EMAIL must be set"
+    (Just uuid, _, _) -> do
+      case fromText (T.pack uuid) of
+        Nothing -> throw $ userError "Invalid UUID"
+        Just uuid' ->
+          let maybeUsername' = fmap T.pack maybeUsername
+              maybeEmail' = fmap T.pack maybeEmail
+           in return $ UserIdentifier (Just $ UserUUID uuid') maybeUsername' maybeEmail'
+    (Nothing, _, _) -> do
+      let maybeUsername' = fmap T.pack maybeUsername
+          maybeEmail' = fmap T.pack maybeEmail
+      return $ UserIdentifier Nothing maybeUsername' maybeEmail'
 
 
 configEmail :: IO String
