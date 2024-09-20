@@ -58,8 +58,8 @@ library
   build-depends:
       aeson
     , base >=4.7 && <5
-    , base64
-    , bytestring
+    , base64 ==0.4.*
+    , bytestring ==0.11.*
     , data-textual
     , ed25519
     , email-validate
@@ -69,7 +69,7 @@ library
     , network
     , network-ip
     , servant-server
-    , text
+    , text ==2.0.*
     , time
     , uuid
   default-language: Haskell2010
@@ -87,8 +87,8 @@ test-suite iam-mtaylor-io-core-test
   build-depends:
       aeson
     , base >=4.7 && <5
-    , base64
-    , bytestring
+    , base64 ==0.4.*
+    , bytestring ==0.11.*
     , data-textual
     , ed25519
     , email-validate
@@ -99,7 +99,7 @@ test-suite iam-mtaylor-io-core-test
     , network
     , network-ip
     , servant-server
-    , text
+    , text ==2.0.*
     , time
     , uuid
   default-language: Haskell2010
