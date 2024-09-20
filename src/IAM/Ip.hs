@@ -47,3 +47,7 @@ convertIpv6 :: HostAddress6 -> IP6
 convertIpv6 addr =
   let (w0, w1, w2, w3, w4, w5, w6, w7) = hostAddress6ToTuple addr
    in ip6FromWords w0 w1 w2 w3 w4 w5 w6 w7
+
+
+localIp4 :: IpAddr
+localIp4 = IpAddr $ netAddr (IPv4 $ ip4FromOctets 127 0 0 1) 32
