@@ -8,6 +8,8 @@ module IAM.Config
   , configURL
   , envPrefix
   , headerPrefix
+  , loadNamespaceEnvConfig
+  , lookupNamespaceEnvConfig
   , printUserNameShellVars
   , printUserEmailShellVars
   , printUserUUIDShellVars
